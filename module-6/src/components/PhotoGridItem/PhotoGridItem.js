@@ -2,10 +2,22 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 const PhotoGridItem = ({ id, src, alt, tags }) => {
+  const imageName = src.replace(".jpg", "")
+  
   return (
     <article>
       <Anchor href={`/photos/${id}`}>
-        <Image src={src} />
+        <ImageWrapper>
+          <source
+            type="image/avif"
+            srcSet={`
+              ${imageName}.avif 1x,
+              ${imageName}@2x.avif 2x,
+              ${imageName}@3x.avif 3x
+            `}
+          />
+          <Image src={src} alt={alt} />
+        </ImageWrapper>
       </Anchor>
       <Tags>
         {tags.map((tag) => (
@@ -22,10 +34,15 @@ const Anchor = styled.a`
   outline-offset: 4px;
 `;
 
+const ImageWrapper = styled.picture`
+  display: block;
+`
+
 const Image = styled.img`
   display: block;
   width: 100%;
   height: 300px;
+  object-fit: cover;
   border-radius: 2px;
   margin-bottom: 8px;
 `;

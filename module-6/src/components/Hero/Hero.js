@@ -4,8 +4,18 @@ import styled from 'styled-components/macro';
 const Hero = () => {
   return (
     <Wrapper>
-      <HeroImage src="/images/hero-img.jpg" />
-      <Swoop src="/swoop.svg" />
+      <HeroImageWrapper>
+        <source
+          type="image/avif"
+          srcSet="
+            /images/hero-img.avif 1x,
+            /images/hero-img@2x.avif 2x,
+            /images/hero-img@3x.avif 3x
+          "
+        />
+        <HeroImage src="/images/hero-img.jpg" alt="Cat sitting in the dark" />
+      </HeroImageWrapper>
+      <Swoop src="/swoop.svg" alt="" />
     </Wrapper>
   );
 };
@@ -20,11 +30,16 @@ const Wrapper = styled.section`
   background: hsl(0deg 0% 1%);
 `;
 
-const HeroImage = styled.img`
+const HeroImageWrapper = styled.picture`
   display: block;
   width: 500px;
   height: 500px;
   max-height: 100%;
+`
+
+const HeroImage = styled.img`
+  display: block;
+  width: 100%;
 `;
 
 const Swoop = styled.img`
